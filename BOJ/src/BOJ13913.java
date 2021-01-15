@@ -12,7 +12,7 @@ public class BOJ13913 {
 	static boolean visited[] = new boolean[100001];
 	static int parents[] = new int[100001];
 	
-	public static void main(String[] args)  throws IOException {
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken());
