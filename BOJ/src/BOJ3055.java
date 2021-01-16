@@ -104,7 +104,7 @@ public class BOJ3055 {
 					map[x][y] = '*';
 					water.offer(new coordinate(x, y, cur.second+1));
 				}	
-			}else {
+			}else { // 물은 다 찼다면 고슴도치만 이동
 				while(!hedgehog.isEmpty()) {
 					coordinate animal = hedgehog.poll();
 					for(int i = 0; i < 4; i++) {
@@ -135,10 +135,7 @@ public class BOJ3055 {
 					}
 				}
 			}
-			
-			
-					
-			
+
 		}
 	}
 
