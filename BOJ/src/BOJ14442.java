@@ -67,10 +67,10 @@ public class BOJ14442 {
 	}
 	
 	static class coordinate implements Comparable<coordinate>{
-		int x;
-		int y;
-		int count;
-		int dis;
+		int x; // 행
+		int y; // 열 
+		int count; // 부순 벽의 수
+		int dis; // 이동한 거리
 		
 		coordinate(int x, int y, int count, int dis) {
 			this.x = x;

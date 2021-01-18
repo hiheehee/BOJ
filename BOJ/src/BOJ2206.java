@@ -27,9 +27,10 @@ public class BOJ2206 {
         }
         
         bfs(0,0);
-        if(answer == Integer.MAX_VALUE) {
+        
+        if(answer == Integer.MAX_VALUE) { // 이동하지 못하는 경우
         	System.out.println(-1);
-        }else {
+        }else { // 이동한 경우 최단경로 출력
         	System.out.println(answer);
         }
         
@@ -41,28 +42,29 @@ public class BOJ2206 {
 		while(!q.isEmpty()) {
 			coordinate temp = q.poll();
 			
-			if(temp.x == n-1 && temp.y == m-1) {
+			if(temp.x == n-1 && temp.y == m-1) { // [n,m] 위치에 도착한 경우 return
 				answer = temp.dis;
 				break;
 			}
 			
-			for(int i = 0; i<4; i++) {
+			for(int i = 0; i < 4; i++) { // 상 하 좌 우 이동
 				int x = temp.x + X[i];
 				int y = temp.y + Y[i];
-				if(x < 0 || y < 0 || x >= n || y >= m ) {
+				
+				if(x < 0 || y < 0 || x >= n || y >= m ) { //범위 초과시 무시
 					continue;
 				}
 				
-				if(visited[x][y] <= temp.count) {
+				if(visited[x][y] <= temp.count) { //이동한 적있는 칸은 무시
 					continue;
 				}
 				
 				
-				if(map[x][y] == 0) {
+				if(map[x][y] == 0) { // 벽이 아니면 이동 가능
 					visited[x][y] = temp.count;
 					q.add(new coordinate(x, y, temp.dis+1, temp.count));		
-				}else{
-					if(temp.count == 0) {
+				}else{ // 벽인 경우
+					if(temp.count == 0) { // 벽을 한번도 부수지 않은 경우 이동 가능 
 						visited[x][y] = temp.count+1;
 						q.add(new coordinate(x, y, temp.dis+1, temp.count+1));	
 					}
@@ -75,10 +77,10 @@ public class BOJ2206 {
 	}
 	
 	static class coordinate {
-		int x;
-		int y;
-		int dis;
-		int count;
+		int x; // 행
+		int y; // 열
+		int dis; // 이동한 거리
+		int count; //부신 벽의 수
 		
 		public coordinate(int x, int y, int dis, int count) {
 			this.x = x;

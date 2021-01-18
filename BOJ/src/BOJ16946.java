@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -40,13 +39,6 @@ public class BOJ16946 {
 			}
 		}
 		
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < m; j++) {
-				System.out.print(group[i][j]);
-			}
-			System.out.println();
-		}System.out.println();
-		
 		StringBuffer sb = new StringBuffer();
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
@@ -62,7 +54,7 @@ public class BOJ16946 {
 		int sum = 1;
 		HashSet<Integer> hs = new HashSet<>();
 		
-		if(map[X][Y] == 0) {
+		if(map[X][Y] == '0') {
 			return 0;
 		}
 		
