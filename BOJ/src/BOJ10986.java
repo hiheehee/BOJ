@@ -10,25 +10,23 @@ public class BOJ10986 {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken()); // 수의 개수
 		int m = Integer.parseInt(st.nextToken()); // 합을 나누는 수
-		int num[] = new int[n];
-		long sum[] = new long[n+1];
-		long count = 0;
-
+		long sum = 0;
+		long count[] = new long[m];
+		long result = 0;
+		
 		st = new StringTokenizer(br.readLine());
 		for(int i = 1; i < n+1; i++) {
-			sum[i] = Integer.parseInt(st.nextToken());
-			sum[i] += sum[i-1];
-		}
-
-		for(int i = 1; i < n+1; i++) {
-			for(int j = i; j < n+1; j++) {
-				if((sum[i] - sum[j-1])%m == 0) {
-					count++;
-				}
-			}
+			sum += Integer.parseInt(st.nextToken());
+			sum %= m;
+			count[(int)sum]++;
 		}
 		
-		System.out.println(count);
+		result += count[0];
+		for(int i = 0; i < m; i++) {
+			result += (count[i]*(count[i]-1))/2;
+		}
+		
+		System.out.println(result);
 	}
 
 }
