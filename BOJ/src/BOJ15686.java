@@ -61,6 +61,9 @@ public class BOJ15686 {
 				}
 			}
 			result += min;
+			if(result > answer) {
+				return;
+			}
 		}
 		answer = Math.min(answer, result);
 	}
