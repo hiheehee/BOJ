@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class BOJ20057 {
-
 	static int total = 0;
 	static int dxy[][] = {{0,-1}, {1,0}, {0,1}, {-1,0}}; // (0: 서쪽, 1:남쪽, 2:동쪽, 3:북쪽
 	static int sand[][];
@@ -40,7 +39,7 @@ public class BOJ20057 {
 		System.out.println(total);
 	}
 	
-	// 모래 움직임
+	// 모래 흩날림
 	static void makeTornado(int x, int y, int d) {
 		HashMap<Integer, Integer> hm = new HashMap<>();
 		hm.put(1, (int)(sand[x][y]*0.01));
