@@ -15,11 +15,10 @@ public class BOJ20057 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
 		sand = new int[n][n];
-		
+				
 		for(int i = 0; i < 4; i++)
 			tornado[i] = new ArrayList<>();
 
-		// input
 		for(int i = 0; i < n; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < n; j++) {
