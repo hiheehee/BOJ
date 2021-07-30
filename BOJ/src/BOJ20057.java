@@ -10,12 +10,11 @@ public class BOJ20057 {
 	static int dxy[][] = {{0,-1}, {1,0}, {0,1}, {-1,0}}; // (0: 辑率, 1:巢率, 2:悼率, 3:合率
 	static int sand[][];
 	static int n;
-	static ArrayList<point>[] tornado; 
+	static ArrayList<point>[] tornado = new ArrayList[4]; 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
 		sand = new int[n][n];
-		tornado = new ArrayList[4];
 		
 		for(int i = 0; i < 4; i++)
 			tornado[i] = new ArrayList<>();
