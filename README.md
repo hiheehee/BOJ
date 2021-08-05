@@ -10,7 +10,7 @@ Algorithm & Data structure
 -----------------------------
 # ✏️ BACKJOON 문제 풀이 현황  
 [![solved.ac tier](http://mazassumnida.wtf/api/generate_badge?boj=wkqk66)](https://solved.ac/wkqk66)  
-#✏️ 프로젝트 목표  
+# ✏️ 프로젝트 목표  
 * String
 * Sort
 * BFS
