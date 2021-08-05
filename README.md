@@ -8,5 +8,23 @@ Algorithm & Data structure
 * Author : 황규희  
 * Date : 2019.09.02 ~
 -----------------------------
-# BACKJOON 문제 풀이 현황
+# 📌 BACKJOON 문제 풀이 현황
 [![solved.ac tier](http://mazassumnida.wtf/api/generate_badge?boj=wkqk66)](https://solved.ac/wkqk66)
+📌 프로젝트 목표
+* String
+* Sort
+* BFS
+* DFS
+* Tree
+* Brute force
+* Stack
+* Queue
+* Deque
+* Implementation
+* Math
+* Deque
+* Bitmask
+📌 사용 기술 및 환경
+* Windows 10
+* Eclipse IDE for Java Developers - 2019-12
+* Java 11
