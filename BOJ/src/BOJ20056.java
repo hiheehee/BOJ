@@ -6,125 +6,144 @@ import java.util.StringTokenizer;
 
 public class BOJ20056 {
 
-	static ArrayList<fireBall> map[][];
+	static int n, m;
+	static String map[][];
 	static int dxy[][] = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
-	static int N;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int M = Integer.parseInt(st.nextToken());
-		int K = Integer.parseInt(st.nextToken());
-		map = new ArrayList[N][N];
-		int result = 0;
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		map = new String[n][n];
 		
-        for(int i = 0; i < N; i++)
-            for(int j = 0; j < N; j++)
-                map[i][j] = new ArrayList<>();
+		for(int i = 0; i < n; i++) 
+			for(int j = 0; j < n; j++)
+				map[i][j] = "";
 		
-		for(int i = 0; i < M; i++) {
+		for(int i = 0; i < m; i++) {
 			st = new StringTokenizer(br.readLine());
 			int r = Integer.parseInt(st.nextToken())-1;
 			int c = Integer.parseInt(st.nextToken())-1;
 			int m = Integer.parseInt(st.nextToken());
 			int s = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
+			map[r][c] += m+" "+s+" "+d+"-"; 
 		}
 		
-		for(int i = 0; i < K; i++)
+		while(k-- > 0) {
 			move();
+			bomb();
+		}
+		result();
+	}
 
-		
-		for(int i = 0; i < N; i++)
-			for(int j = 0; j < N; j++)
-				if(0 < map[i][j].size())
-					for(fireBall fb : map[i][j])
-						result += fb.m;
-		
-		System.out.println(result);
+	static void result() {
+		int sum = 0;
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				if(!map[i][j].equals("")) {
+					String fireballs[] = map[i][j].split("-");
+					for(int k = 0; k < fireballs.length; k++) {
+						String fireball[] = fireballs[k].split(" ");
+						int m = Integer.parseInt(fireball[0]);
+						
+						sum += m;
+					}
+				}
+			}
+		}
+		System.out.println(sum);
+	}
+	
+	static void copy(String temp[][]) {
+		for(int i = 0; i < n; i++) 
+			for(int j = 0; j < n; j++)
+				map[i][j] = temp[i][j];
 	}
 	
 	static void move() {
-		ArrayList<fireBall> tmp[][] = new ArrayList[N][N];
+		String temp[][] = new String[n][n];
+		for(int i = 0; i < n; i++) 
+			for(int j = 0; j < n; j++)
+				temp[i][j] = "";
 		
-		for(int i = 0; i < N; i++)
-            for(int j = 0; j < N; j++)
-                tmp[i][j] = new ArrayList<>();
-		
-		for(int i = 0; i < N; i++) {
-			for(int j = 0; j < N; j++) {
-				if(map[i][j].size() > 0) {
-					for(fireBall cur : map[i][j]) {
-						int tr = i + (dxy[cur.d][0] * cur.s%N);
-						int tc = j + (dxy[cur.d][1] * cur.s%N);
-					
-						if(tr < 0) tr += N;
-						if(N <= tr) tr -= N;
-						if(tc < 0) tc += N;
-						if(N <= tc) tc -= N;
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				if(!map[i][j].equals("")) {
+					String fireballs[] = map[i][j].split("-");
+					for(int k = 0; k < fireballs.length; k++) {
+						String fireball[] = fireballs[k].split(" ");
+						int m = Integer.parseInt(fireball[0]);
+						int s = Integer.parseInt(fireball[1]);
+						int d = Integer.parseInt(fireball[2]);
 						
-						tmp[tr][tc].add(new fireBall(cur.m, cur.s, cur.d));
+						int tx = i + dxy[d][0]*s%n;
+						int ty = j + dxy[d][1]*s%n;
+						
+						if(!isRange(tx, ty)) {
+							if(tx < 0) {
+								tx += n;
+							}else if(n <= tx) {
+								tx -= n;
+							}
+							
+							if(ty < 0) {
+								ty += n;
+							}else if(n <= ty) {
+								ty -= n;
+							}
+						}
+						
+						temp[tx][ty] += m+" "+s+" "+d+"-";
 					}
-				}
-				map[i][j].clear();
-			}
-		}
-		split(tmp);
-	}
-	
-	static void split(ArrayList<fireBall> tmp[][]) {
-		for(int i = 0; i < N; i++) {
-			for(int j = 0; j < N; j++) {
-				if(1 == tmp[i][j].size()) {
-					tmp[i][j].clear();
-				}else if(2 <= tmp[i][j].size()) {
-					int mSum = 0;
-					int sSum = 0;
-					boolean odd = false;
-					boolean even = false;
-					
-					for(fireBall cur: tmp[i][j]) {
-						mSum += cur.m;
-						sSum += cur.s;
-						if (cur.d%2 == 0) even = true;
-						else odd = true;
-					}
-					
-					mSum /= 5;
-					sSum /= tmp[i][j].size();
-					tmp[i][j].clear();
-					if(mSum == 0) continue;
-					
-					int d = 0;
-					if(odd && even) ++d;
-
-					for(; d < 8; d += 2) {
-						int tr = i + dxy[d][0] * (sSum%N);
-						int tc = j + dxy[d][1] * (sSum%N);
-								
-						if(tr < 0) tr += N;
-						if(N <= tr) tr -= N;
-						if(tc < 0) tc += N;
-						if(N <= tc) tc -= N;
-
-						tmp[tr][tc].add(new fireBall(mSum, sSum, d));
-					}	
 				}
 			}
 		}
-		map = tmp;
-	}
-	
-	
-	static class fireBall {
-		int m;
-		int s;
-		int d;
 		
-		fireBall(int m, int s, int d){
-			this.m = m;
-			this.s = s;
-			this.d = d;
+		copy(temp);
+	}
+	
+	static void bomb() {
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				if(!map[i][j].equals("")) {
+					String fireballs[] = map[i][j].split("-");
+					if(fireballs.length < 2) continue;
+					int M = 0;
+					int S = 0;
+					boolean isEven = false;
+					boolean isOdd = false;
+					
+					for(int k = 0; k < fireballs.length; k++) {
+						String fireball[] = fireballs[k].split(" ");
+						int m = Integer.parseInt(fireball[0]);
+						int s = Integer.parseInt(fireball[1]);
+						int d = Integer.parseInt(fireball[2]);
+						
+						M += m;
+						S += s;
+						if(d%2 == 0) isEven = true;
+						else isOdd = true;
+					}
+					
+					M /= 5;
+					S /= fireballs.length;
+					map[i][j] = "";
+					if(M == 0) continue;
+					
+					int ind = 0;
+					if(isEven && isOdd) ind = 1;
+					
+					for(; ind < 8; ind += 2) {
+						map[i][j] += M+" "+S+" "+ind+"-";
+					}
+				}
+			}
 		}
 	}
-
+	
+	static boolean isRange(int x, int y) {
+		return -1 < x && x < n && -1 < y && y < n;
+	}
 }
